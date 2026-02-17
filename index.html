@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise 🎂</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(270deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
+background-size:800% 800%;
+animation:bgMove 15s ease infinite;
+text-align:center;
+color:white;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* CINEMATIC INTRO */
+#intro{
+position:absolute;
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:40px;
+letter-spacing:4px;
+background:black;
+animation:introFade 4s forwards;
+z-index:10;
+}
+
+@keyframes introFade{
+0%{opacity:1}
+80%{opacity:1}
+100%{opacity:0;visibility:hidden}
+}
+
+/* START BUTTON */
+#startBtn{
+margin-top:40vh;
+padding:18px 35px;
+font-size:22px;
+border:none;
+border-radius:40px;
+background:#ff4081;
+color:white;
+cursor:pointer;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+/* GLOW TEXT */
+#title{
+display:none;
+font-size:60px;
+margin-top:40px;
+background:linear-gradient(90deg,#ff0,#ff4081,#00e5ff,#76ff03);
+-webkit-background-clip:text;
+color:transparent;
+animation:shine 3s linear infinite;
+}
+
+@keyframes shine{
+0%{filter:hue-rotate(0deg)}
+100%{filter:hue-rotate(360deg)}
+}
+
+/* BALLOONS */
+.balloon{
+position:absolute;
+bottom:-100px;
+width:60px;
+height:80px;
+border-radius:50%;
+animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+from{transform:translateY(0)}
+to{transform:translateY(-120vh)}
+}
+
+/* CONFETTI */
+.confetti{
+position:absolute;
+width:8px;
+height:8px;
+animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+from{transform:translateY(-10vh) rotate(0)}
+to{transform:translateY(110vh) rotate(720deg)}
+}
+
+/* 3D CAKE */
+#cake{
+display:none;
+margin:auto;
+margin-top:40px;
+width:200px;
+height:120px;
+background:#ffb6c1;
+border-radius:15px;
+position:relative;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+#candle{
+position:absolute;
+width:12px;
+height:40px;
+background:white;
+top:-40px;
+left:94px;
+cursor:pointer;
+}
+
+#flame{
+width:14px;
+height:14px;
+background:orange;
+border-radius:50%;
+position:absolute;
+top:-14px;
+left:-1px;
+animation:flicker .2s infinite alternate;
+}
+
+@keyframes flicker{
+from{transform:scale(1)}
+to{transform:scale(1.2)}
+}
+
+#message{
+display:none;
+font-size:40px;
+margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="intro">✨ A Special Surprise Is Loading ✨</div>
+
+<button id="startBtn">🎁 Tap For Birthday Surprise</button>
+
+<h1 id="title">🎉 HAPPY BIRTHDAY Megha 🎂</h1>
+
+<div id="cake">
+<div id="candle">
+<div id="flame"></div>
+</div>
+</div>
+
+<div id="message">🎊 Make a Wish! 🎊</div>
+
+<script>
+
+/* ---------- MUSIC (UNBLOCKABLE) ---------- */
+function playBirthdayMusic(){
+
+const AudioContext=window.AudioContext||window.webkitAudioContext;
+const ctx=new AudioContext();
+
+function note(freq,time){
+let osc=ctx.createOscillator();
+let gain=ctx.createGain();
+osc.type="sine";
+osc.frequency.value=freq;
+osc.connect(gain);
+gain.connect(ctx.destination);
+osc.start(time);
+gain.gain.setValueAtTime(0.3,time);
+gain.gain.exponentialRampToValueAtTime(0.001,time+0.6);
+osc.stop(time+0.6);
+}
+
+let melody=[
+262,262,294,262,349,330,
+262,262,294,262,392,349,
+262,262,523,440,349,330,294,
+466,466,440,349,392,349
+];
+
+function play(){
+let t=ctx.currentTime;
+melody.forEach((f,i)=>note(f,t+i*0.6));
+}
+play();
+setInterval(play,16000);
+}
+
+/* ---------- BALLOONS ---------- */
+function balloons(){
+for(let i=0;i<25;i++){
+let b=document.createElement("div");
+b.className="balloon";
+b.style.left=Math.random()*100+"vw";
+b.style.background=`hsl(${Math.random()*360},70%,60%)`;
+b.style.animationDuration=(6+Math.random()*5)+"s";
+document.body.appendChild(b);
+}
+}
+
+/* ---------- CONFETTI ---------- */
+function confetti(){
+setInterval(()=>{
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),4000);
+},120);
+}
+
+/* ---------- START EXPERIENCE ---------- */
+document.getElementById("startBtn").onclick=function(){
+
+this.style.display="none";
+document.getElementById("title").style.display="block";
+document.getElementById("cake").style.display="block";
+document.getElementById("message").style.display="block";
+
+playBirthdayMusic();
+balloons();
+confetti();
+};
+
+/* ---------- BLOW CANDLE ---------- */
+document.getElementById("candle").onclick=function(){
+document.getElementById("flame").style.display="none";
+
+for(let i=0;i<150;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left="50vw";
+c.style.top="50vh";
+c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+c.style.animationDuration="2s";
+document.body.appendChild(c);
+}
+};
+
+</script>
+
+</body>
+</html>
