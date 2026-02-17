@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>🎉 Birthday Surprise 🎂</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.container{
+text-align:center;
+background:rgba(0,0,0,0.35);
+padding:35px;
+border-radius:25px;
+color:white;
+backdrop-filter:blur(12px);
+box-shadow:0 0 25px rgba(255,255,255,0.4);
+}
+
+h1{
+font-size:42px;
+background:linear-gradient(90deg,#ff0000,#ffff00,#00ffff,#ff00ff);
+-webkit-background-clip:text;
+color:transparent;
+animation:hue 5s linear infinite;
+}
+
+@keyframes hue{
+100%{filter:hue-rotate(360deg);}
+}
+
+p{
+font-size:20px;
+margin-top:10px;
+}
+
+button{
+padding:15px 30px;
+font-size:18px;
+border:none;
+border-radius:30px;
+background:#ff4081;
+color:white;
+cursor:pointer;
+margin-top:20px;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+background:#ff1744;
+}
+
+/* BALLOONS */
+.balloon{
+position:absolute;
+bottom:-120px;
+width:40px;
+height:50px;
+border-radius:50%;
+animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+from{transform:translateY(0);}
+to{transform:translateY(-120vh);}
+}
+
+/* CONFETTI */
+.confetti{
+position:absolute;
+width:8px;
+height:8px;
+top:-10px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="box">
+<h1>🎁 A Special Surprise from Rohit Awaits 🎁</h1>
+<p>Tap below to start the celebration</p>
+<button onclick="startParty()">Open Surprise 🎉</button>
+</div>
+
+<!-- HAPPY BIRTHDAY MUSIC (Reliable & Mobile Safe) -->
+<audio id="music" preload="auto" loop>
+<source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-126.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+function startParty(){
+
+// PLAY MUSIC SAFELY
+let music = document.getElementById("music");
+music.volume = 0.6;
+
+music.play().then(()=>{
+   console.log("Music started");
+}).catch(()=>{
+   document.body.addEventListener("click", function(){
+       music.play();
+   }, { once:true });
+});
+
+// CHANGE MESSAGE
+document.getElementById("box").innerHTML=
+"<h1>🎂 HAPPY BIRTHDAY Megha Kundu 🎂</h1>"+
+"<p>May your happiness rise like mountains, your problems flow away like rivers, and your success expand like the universe 🌟</p>"+
+"<p>Enjoy your special day 🎉</p>";
+
+createBalloons();
+createConfetti();
+}
+
+/* BALLOONS */
+function createBalloons(){
+for(let i=0;i<25;i++){
+let b=document.createElement("div");
+b.className="balloon";
+b.style.left=Math.random()*100+"vw";
+b.style.backgroundColor=
+"hsl("+Math.random()*360+",80%,60%)";
+b.style.animationDuration=(Math.random()*5+5)+"s";
+document.body.appendChild(b);
+}
+}
+
+/* CONFETTI */
+function createConfetti(){
+for(let i=0;i<120;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.backgroundColor=
+"hsl("+Math.random()*360+",100%,50%)";
+c.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(c);
+}
+}
+
+</script>
+
+</body>
+</html>
