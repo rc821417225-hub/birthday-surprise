@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>🎂 Birthday Surprise 🎉</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial;
+background:linear-gradient(45deg,#ff4e50,#fc913a,#f9d423);
+background-size:400% 400%;
+animation:bgMove 8s infinite alternate;
+color:white;
+text-align:center;
+overflow:hidden;
+}
+
+@keyframes bgMove{
+0%{background-position:left;}
+100%{background-position:right;}
+}
+
+.container{
+background:rgba(0,0,0,0.4);
+padding:30px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(255,255,255,0.5);
+}
+
+button{
+padding:15px 25px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#ffcc00;
+cursor:pointer;
+font-weight:bold;
+}
+
+h1{
+animation: glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{ text-shadow:0 0 10px white;}
+to{ text-shadow:0 0 25px yellow;}
+}
+
+/* Confetti */
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+background:white;
+top:-10px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>🎉 Someone has a Surprise! 🎉</h1>
+<p>Click below 👇</p>
+
+<button onclick="showWish()">Open Surprise 🎁</button>
+
+<h2 id="message"></h2>
+</div>
+
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<script>
+function showWish(){
+document.getElementById("message").innerHTML =
+"🎂 Happy Birthday Megha 🎉<br>May your happiness rise like mountains, your problems flow away like rivers and your sucess expand like university 🌟";
+
+document.getElementById("music").play();
+createConfetti();
+}
+
+function createConfetti(){
+for(let i=0;i<80;i++){
+let conf=document.createElement("div");
+conf.className="confetti";
+conf.style.left=Math.random()*100+"vw";
+conf.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(conf);
+}
+}
+</script>
+
+</body>
+</html>
