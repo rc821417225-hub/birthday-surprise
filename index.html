@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🎉 Birthday Surprise 🎂</title>
+
+<style>
+
+/* ---------- BACKGROUND ---------- */
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-family:Poppins, sans-serif;
+text-align:center;
+background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+color:white;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* ---------- CONTAINER ---------- */
+.container{
+background:rgba(0,0,0,0.35);
+padding:30px;
+border-radius:25px;
+backdrop-filter:blur(12px);
+box-shadow:0 0 25px rgba(255,255,255,0.4);
+}
+
+/* ---------- GLOW TEXT ---------- */
+h1{
+font-size:34px;
+background:linear-gradient(90deg,#ff0000,#ffff00,#00ffff,#ff00ff);
+-webkit-background-clip:text;
+color:transparent;
+animation:hue 6s linear infinite;
+}
+
+@keyframes hue{
+100%{filter:hue-rotate(360deg);}
+}
+
+/* ---------- BUTTON ---------- */
+button{
+padding:15px 28px;
+font-size:18px;
+border:none;
+border-radius:30px;
+background:#ff4081;
+color:white;
+cursor:pointer;
+margin-top:20px;
+transition:.3s;
+}
+button:hover{transform:scale(1.1);}
+
+/* ---------- CAKE ---------- */
+.cake{
+margin:25px auto;
+width:160px;
+position:relative;
+}
+
+.layer{
+height:45px;
+border-radius:12px;
+margin:8px 0;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+}
+.layer1{background:#ff8fab;}
+.layer2{background:#ffc2d1;}
+.layer3{background:#ffe5ec;}
+
+.candle{
+width:10px;
+height:45px;
+background:white;
+margin:auto;
+border-radius:5px;
+position:relative;
+}
+
+.flame{
+width:14px;
+height:14px;
+background:orange;
+border-radius:50%;
+position:absolute;
+top:-16px;
+left:-2px;
+box-shadow:0 0 20px orange;
+animation:flicker .3s infinite alternate;
+}
+
+@keyframes flicker{
+from{transform:scale(1);}
+to{transform:scale(1.3);}
+}
+
+/* ---------- BALLOONS ---------- */
+.balloon{
+position:absolute;
+bottom:-120px;
+width:40px;
+height:50px;
+border-radius:50%;
+animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+to{transform:translateY(-120vh);}
+}
+
+/* ---------- CONFETTI ---------- */
+.confetti{
+position:absolute;
+width:8px;
+height:8px;
+top:-10px;
+animation:fall linear infinite;
+}
+@keyframes fall{
+to{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* ---------- FIREWORKS ---------- */
+.firework{
+position:absolute;
+width:6px;
+height:6px;
+border-radius:50%;
+animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+from{transform:scale(1);opacity:1;}
+to{transform:scale(15);opacity:0;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="box">
+<h1>🎁 Surprise from Rohit 🎁</h1>
+<p>Tap below to start the celebration</p>
+<button onclick="startParty()">Open Surprise 🎉</button>
+</div>
+
+<!-- WORKING HAPPY BIRTHDAY MUSIC -->
+<audio id="music" preload="auto" loop>
+<source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-126.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+function startParty(){
+
+let music=document.getElementById("music");
+music.volume=0.6;
+music.play().catch(()=>{});
+
+document.getElementById("box").innerHTML=
+`<h1>🎂 HAPPY BIRTHDAY MEGHA 🎂</h1>
+
+<p> 🎉 May your happiness rise like mountains,
+your problems flow away like rivers,
+and your success expand like the universe 🌟</p>
+
+<div class="cake" onclick="blowCandle()">
+<div class="candle"><div class="flame" id="flame"></div></div>
+<div class="layer layer1"></div>
+<div class="layer layer2"></div>
+<div class="layer layer3"></div>
+<p>(Tap cake to blow candle 🕯️)</p>
+</div>`;
+
+createBalloons();
+createConfetti();
+
+setInterval(createFirework,800);
+}
+
+/* Blow Candle */
+function blowCandle(){
+let flame=document.getElementById("flame");
+if(flame){
+flame.style.display="none";
+createFirework();
+}
+}
+
+/* Balloons */
+function createBalloons(){
+for(let i=0;i<25;i++){
+let b=document.createElement("div");
+b.className="balloon";
+b.style.left=Math.random()*100+"vw";
+b.style.backgroundColor="hsl("+Math.random()*360+",80%,60
