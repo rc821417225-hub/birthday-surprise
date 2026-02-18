@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>🎉 Birthday Surprise 🎂</title>
+
+<style>
+
+/* ---------- BODY ---------- */
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-family:Arial, sans-serif;
+text-align:center;
+color:white;
+background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);
+background-size:400% 400%;
+animation:bgMove 12s infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* ---------- BOX ---------- */
+.container{
+background:rgba(0,0,0,0.35);
+padding:30px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(255,255,255,.4);
+}
+
+/* ---------- GLOW TEXT ---------- */
+h1{
+font-size:32px;
+background:linear-gradient(90deg,red,yellow,cyan,magenta);
+-webkit-background-clip:text;
+color:transparent;
+animation:hue 6s linear infinite;
+}
+
+@keyframes hue{
+100%{filter:hue-rotate(360deg);}
+}
+
+button{
+padding:14px 25px;
+border:none;
+border-radius:30px;
+font-size:18px;
+background:#ff4081;
+color:white;
+cursor:pointer;
+}
+
+/* ---------- CAKE ---------- */
+.cake{
+margin-top:20px;
+}
+
+.layer{
+width:160px;
+height:40px;
+margin:6px auto;
+border-radius:10px;
+box-shadow:0 5px 12px rgba(0,0,0,.3);
+}
+
+.l1{background:#ff8fab;}
+.l2{background:#ffc2d1;}
+.l3{background:#ffe5ec;}
+
+.candle{
+width:10px;
+height:40px;
+background:white;
+margin:auto;
+position:relative;
+border-radius:4px;
+}
+
+.flame{
+width:14px;
+height:14px;
+background:orange;
+border-radius:50%;
+position:absolute;
+top:-15px;
+left:-2px;
+box-shadow:0 0 15px orange;
+animation:flicker .3s infinite alternate;
+}
+
+@keyframes flicker{
+from{transform:scale(1);}
+to{transform:scale(1.3);}
+}
+
+/* ---------- BALLOONS ---------- */
+.balloon{
+position:absolute;
+bottom:-100px;
+width:35px;
+height:45px;
+border-radius:50%;
+animation:up linear infinite;
+}
+@keyframes up{
+to{transform:translateY(-120vh);}
+}
+
+/* ---------- CONFETTI ---------- */
+.confetti{
+position:absolute;
+width:7px;
+height:7px;
+top:-10px;
+animation:fall linear infinite;
+}
+@keyframes fall{
+to{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* ---------- FIREWORK ---------- */
+.firework{
+position:absolute;
+width:6px;
+height:6px;
+border-radius:50%;
+animation:boom 1s forwards;
+}
+@keyframes boom{
+to{transform:scale(15);opacity:0;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="box">
+<h1>🎁 Surprise from Rohit 🎁</h1>
+<p>Tap to begin celebration</p>
+<button onclick="startParty()">Open Surprise 🎉</button>
+</div>
+
+<!-- MOBILE SAFE MUSIC -->
+<audio id="music" loop>
+<source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-126.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+function startParty(){
+
+/* MUSIC (works only after click — mobile rule) */
+let music=document.getElementById("music");
+music.play().catch(()=>{});
+
+/* CHANGE CONTENT */
+document.getElementById("box").innerHTML=`
+<h1>🎂 HAPPY BIRTHDAY MEGHA 🎂</h1>
+
+<p>
+🎂 May your happiness rise like mountains,
+your problems flow away like rivers,
+and your success expand like the universe 🌟
+</p>
+
+<div class="cake" onclick="blow()">
+<div class="candle"><div class="flame" id="flame"></div></div>
+<div class="layer l1"></div>
+<div class="layer l2"></div>
+<div class="layer l3"></div>
+<p>(Tap cake to blow candle 🕯️)</p>
+</div>
+`;
+
+balloons();
+confetti();
+setInterval(firework,900);
+}
+
+/* Blow Candle */
+function blow(){
+let f=document.getElementById("flame");
+if(f) f.style.display="none";
+}
+
+/* Balloons */
+function balloons(){
+for(let i=0;i<20;i++){
+let b=document.createElement("div");
+b.className="balloon";
+b.style.left=Math.random()*100+"vw";
+b.style.background="hsl("+Math.random()*360+",80%,60%)";
+b.style.animationDuration=(Math.random()*5+5)+"s";
+document.body.appendChild(b);
+}
+}
+
+/* Confetti */
+function confetti(){
+for(let i=0;i<100;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background="hsl("+Math.random()*360+",100%,50%)";
+c.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(c);
+}
+}
+
+/* Fireworks */
+function firework(){
+let f=document.createElement("div");
+f.className="firework";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*70+"vh";
+f.style.background="hsl("+Math.random()*360+",100%,60%)";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1000);
+}
+
+</script>
+
+</body>
+</html>
